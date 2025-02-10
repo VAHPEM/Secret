@@ -139,7 +139,7 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/submit", async (req, res) => {
-  await db.query("INSERT INTO users (secrets) VALUES ($1)", [req.body.secret])
+  await db.query("UPDATE users SET secrets = $1 WHERE email = $2", [req.body.secret, req.user.email])
   res.render("secret.ejs")
 })
 
